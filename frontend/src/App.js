@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Chat from './components/Chat';
+import Homepage from './components/Homepage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="login" element ={<Login/>}/>
         <Route path="signUp" element ={<SignUp/>}/>
         <Route path="chat" element ={<Chat/>}/>
+        <Route path="homepage" element ={<Homepage/>}/>
 
         </Routes>
         </BrowserRouter>

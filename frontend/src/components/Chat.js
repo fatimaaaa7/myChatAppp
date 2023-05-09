@@ -1,6 +1,28 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react';
+import {io} from 'socket.io-client';
 
 const Chat = () => {
+
+	const url = 'http://localhost:5000';
+
+	const inputRef = useRef(null);
+
+	const [socket, setSocket] = useState(io(url, {autoConnect: false}));
+
+	useEffect(() => {
+	  socket.connect();
+	}, [])
+
+	const sendMessage = () => {
+		const obj = {
+			text : inputRef.current.value,
+			time : new Date(),
+			sent: true
+		};
+		socket.emit('sendmsg', obj);
+	}
+	
+
 	return ( <section style={{ backgroundColor: "#CDC4F9" }}>
 	<div className="container py-5">
 	  <div className="row">
@@ -349,6 +371,7 @@ const Chat = () => {
 					  className="form-control form-control-lg"
 					  id="exampleFormControlInput2"
 					  placeholder="Type message"
+					  ref={inputRef}
 					/>
 					<a className="ms-1 text-muted" href="#!">
 					  <i className="fas fa-paperclip" />

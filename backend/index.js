@@ -1,13 +1,22 @@
 const express= require('express');
-const res = require('express/lib/response');
 const app = express();
 
-//imposrting Router
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+
+const httpServer = createServer(app);
+const io = new Server(httpServer, { cors: {origin: 'http://localhost:3000'} });
+
+io.on("connection", (socket) => {
+  console.log('client connected');
+});
+
+//importing Router
 const userRouter = require('./routers/userRouter');
 const cors=require('cors');
 app.use(cors({
 
-    origin:['https://localhost:3000']
+    origin:['http://localhost:3000']
 }));
 
 //convert json data
@@ -30,5 +39,5 @@ app.get('/getall',(req,res)=>{
     res.send('Response from gett all');
 })
 
-app.listen(port,()=>{console.log('server started!!');});
+httpServer.listen(port,()=>{console.log('server started!!');});
  
