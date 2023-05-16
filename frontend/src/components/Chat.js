@@ -9,9 +9,16 @@ const Chat = () => {
 
 	const [socket, setSocket] = useState(io(url, {autoConnect: false}));
 
+	const [msgList, setMsgList] = useState([]);
+
 	useEffect(() => {
 	  socket.connect();
 	}, [])
+
+	socket.on('recmsg' , (data) => {
+		console.log(data);
+		setMsgList([...msgList, data]);
+	})
 
 	const sendMessage = () => {
 		const obj = {
@@ -19,6 +26,8 @@ const Chat = () => {
 			time : new Date(),
 			sent: true
 		};
+		setMsgList([...msgList, obj]);
+
 		socket.emit('sendmsg', obj);
 	}
 	
@@ -173,7 +182,7 @@ const Chat = () => {
 					  <i className="fas fa-smile" />
 					</a>
 					<a className="ms-3" href="#!">
-					  <i className="fas fa-paper-plane" />
+					  <i className="fas fa-paper-plane" onClick={sendMessage} />
 					</a>
 				  </div>
 				</div>

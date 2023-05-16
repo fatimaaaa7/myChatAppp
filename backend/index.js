@@ -9,6 +9,12 @@ const io = new Server(httpServer, { cors: {origin: 'http://localhost:3000'} });
 
 io.on("connection", (socket) => {
   console.log('client connected');
+
+  socket.on('sendmsg', (data) => {
+    console.log(data);
+    data.sent = false;
+    socket.broadcast.emit('recmsg', data);
+  })
 });
 
 //importing Router
