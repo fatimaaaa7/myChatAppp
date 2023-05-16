@@ -41,6 +41,12 @@ const Navbar = () => {
               chat
             </NavLink>
             </li>
+            <li className="nav-item">
+            <NavLink className="nav-link" to="/Homepage ">
+              Homepage
+            </NavLink>
+            </li>
+
           </li>
         </ul>
         {/* Left links */}
